@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forms with React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <title>Music Night</title>
+</head>
+<body>
+    <header class="header">
+        <h2 id="title">Music Night</h2>
+    </header>
+    <main class="main">
+        <form class="form">
+            <label id="form-label">Put your song name in the box and press submit</label>
+            <p id="extra-info">If your song is hard to find maybe include the artist!</p>
+            <input id="song-input" placeholder="Enter song name">
+            <button id="submit">Submit</button>
+        </form>
+
+    </main>
+    <footer class="footer">
+        <p class="footer-text">Press this button to see the list of songs!</p>
+        <button id="song-list-button">Song List</button>
+    </footer>
+    <script src="./main.js"></script>
+</body>
 </html>
