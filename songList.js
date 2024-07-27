@@ -51,6 +51,13 @@ function displaySongs() {
                 shuffledSongs.splice(index, 1);
                 localStorage.setItem('shuffledSongs', JSON.stringify(shuffledSongs));
 
+                // Remove the song from the original songs array
+                const originalIndex = songs.indexOf(song);
+                if (originalIndex !== -1) {
+                    songs.splice(originalIndex, 1);
+                    localStorage.setItem('songs', JSON.stringify(songs));
+                }
+
                 // Remove the list item from the DOM
                 li.remove();
 
