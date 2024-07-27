@@ -6,12 +6,28 @@ songListButton.addEventListener('click', () => {
 });
 
 function displaySongs() {
-    const songs = JSON.parse(localStorage.getItem('songs')) || [];
+    // Retrieve the songs from localStorage or initialize to an empty array
+    let songs = JSON.parse(localStorage.getItem('songs')) || [];
 
-    if (songs.length > 0) {
+    // Check if the songs have already been shuffled and stored
+    let shuffledSongs = JSON.parse(localStorage.getItem('shuffledSongs'));
+    if (!shuffledSongs || shuffledSongs.length !== songs.length) {
+        shuffledSongs = songs.slice(); // Copy the songs array
+
+        // Shuffle the array using the Fisher-Yates algorithm
+        for (let i = shuffledSongs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledSongs[i], shuffledSongs[j]] = [shuffledSongs[j], shuffledSongs[i]];
+        }
+
+        // Store the shuffled order in localStorage
+        localStorage.setItem('shuffledSongs', JSON.stringify(shuffledSongs));
+    }
+
+    if (shuffledSongs.length > 0) {
         const ul = document.createElement('ul');
 
-        songs.forEach((song, index) => {
+        shuffledSongs.forEach((song, index) => {
             const li = document.createElement('li');
             const p = document.createElement('p');
             const buttonStrike = document.createElement('button');
@@ -31,15 +47,15 @@ function displaySongs() {
 
             // Event listener for delete button
             deleteButton.addEventListener('click', () => {
-                // Remove the song from the array
-                songs.splice(index, 1);
-                localStorage.setItem('songs', JSON.stringify(songs));
+                // Remove the song from the shuffled array
+                shuffledSongs.splice(index, 1);
+                localStorage.setItem('shuffledSongs', JSON.stringify(shuffledSongs));
 
                 // Remove the list item from the DOM
                 li.remove();
 
                 // If no songs left, show a message
-                if (songs.length === 0) {
+                if (shuffledSongs.length === 0) {
                     songsDiv.textContent = 'No songs added yet';
                 }
             });
@@ -58,3 +74,5 @@ function displaySongs() {
 }
 
 document.addEventListener('DOMContentLoaded', displaySongs);
+
+
